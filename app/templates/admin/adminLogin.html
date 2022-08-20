@@ -1,0 +1,106 @@
+{% extends 'base.html' %}
+   {% block head %}
+      <title>Admin Login</title>
+      <style>
+         body {
+            background-image: url('static/images/banner.png');
+         }
+         .center {
+    margin: auto;
+    width: 80%;
+    border: 3px ;
+    padding: 10px;
+  }
+      </style>
+   {% endblock %}
+
+
+
+{% block body %}
+<navbar class="navbar nav-fill">
+    <ul class="nav nav-pills nav-fill">
+      <li class="nav-item">
+      <a class="navbar-brand" href="/">
+        <img src="{{ url_for('static', filename='images/logo.png') }}" width="180px"  alt="">
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-item nav-link" href="#"></a>
+    </li>
+  </ul>
+</navbar>
+<br>
+<div class="container">
+    <h2>Admin Login</h2>
+    <hr>
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    {% for message in messages %}
+                        <div>{{message}}</div>
+                    {% endfor %}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+    {% endif %}
+  {% endwith %}
+  {% if form.username.errors %}
+      <div class="alert alert-warning alert-dismissible fade show" role="alert">
+         {% for message in form.username.errors %}
+            <div>
+               {{ message }}
+            </div>
+         {% endfor %}
+         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+         </button>
+      </div>
+   {% endif %}
+   {% if form.password.errors %}
+      <div class="alert alert-warning alert-dismissible fade show" role="alert">
+         {% for message in form.password.errors %}
+            {{ message }}
+         {% endfor %}
+         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+         </button>
+      </div>
+   {% endif %}
+<div class="center">
+<div class="container">
+   <div class="center">
+  <form action = "" method = 'POST'>
+    {{ form.hidden_tag() }}
+    <div class="form-group row">
+        <div class="form-group col-md-6">
+            {{ form.username.label(class="col-sm-2 col-form-label col-form-label-lg"   ) }}
+            <div class="col-sm-10">
+            {{ form.username(class="form-control") }}
+         </div>
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="form-group col-md-6">
+            {{ form.password.label(class="col-sm-2 col-form-label col-form-label-lg") }}
+            <div class="col-sm-10">
+            {{ form.password(class="form-control") }}
+        </div>
+      </div>
+   </div>
+   <div class="form-group row">
+        <div class="col-sm-10">
+            {{ form.submit(class="btn btn-success btn-lg") }}
+        </div>
+      </div>
+    
+  </form>
+  <p><a href="/adminRegistration">New User? Register here.</a></p>
+</div>
+</div>
+</div>
+</div>
+  <hr>
+  
+</div>
+{% endblock %}

@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+{% block head %}
+    <title>Faculties-Edunix</title>
+    <link rel ="stylesheet" type="text/css" href="{{ url_for('static', filename='css/course.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/navbars.css') }}">
+    <style>
+        tbody{
+            background-color: aliceblue;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+
+
+<nav class="navbar navbar-expand-md  justify-content-md-center justify-content-start">
+    <div>
+      <ul class="navbar-nav mx-auto text-md-center text-left">
+    <a class="navbar-brand d-inline" href="#">
+      <img src="{{ url_for('static', filename='images/logo.png') }}" width="180px"  alt="">
+    </a>
+  </ul>
+    </div>
+    <div class="navbar-collapse collapse justify-content-between align-items-center w-100" id="collapsingNavbar2">
+      <ul class="navbar-nav mx-auto text-md-center text-left">
+          <li class="nav-item">
+              <a class="nav-link" href="/adminDashboard">Home </a> 
+          </li>
+          <li id="sep" class="nav-item"><a class="nav-link"> &nbsp; |</a></li>
+          <li class="nav-item">
+              <a class="nav-link" href="#">Courses</a>
+          </li>
+          <li id="sep" class="nav-item"><a class="nav-link"> &nbsp; |</a></li>
+          <li class="nav-item">
+            <a class="nav-link " href="#student">Students</a> 
+        </li>
+        <li id="sep" class="nav-item"><a class="nav-link"> &nbsp; |</a></li>
+        <li class="nav-item">
+          <a class="nav-link active" href="/view-faculties">Faculty</a> 
+      </li>
+      </ul>
+      <ul class="nav navbar-nav flex-row justify-content-md-center justify-content-start flex-nowrap">
+          <li class="nav-item"><a class="nav-link" href="/adminProfile"><i class="fas fa-user-circle fa-1x"> Profile</i>  </a> </li>
+          <li class="nav-item"><a class="nav-link" href="/logout"><i class="fas fa-sign-out-alt fa-1x"> Logout</i>  </a> </li>
+      </ul>
+  </div>
+</nav>
+
+  {% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+      {% for message in messages %}
+        <div>{{message}}</div>
+      {% endfor %}
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+  {% endif %}
+{% endwith %}
+
+<div class="center">
+<h2 style="text-align: center;">Faculty Account's</h2>
+</div>
+  {% if faculties|length < 1 %}
+    <h4>No Faculty account Found.</h4>
+
+  {% else %}
+<div class="">  
+<section  id="table-section">
+    <table class="table table-striped  table-bordered table-hover">
+        <thead class="thead-dark">
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Name</th>
+              <th scope="col">Username</th>
+              <th scope="col">University ID</th>
+              <th scope="col">Email</th>
+              <th scope="col">Phone</th>
+              <th scope="col">Department</th>
+              <th scope="col">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for faculty in faculties %}
+            <tr>
+              <th scope="row">{{ loop.index }}</th>
+              <td>{{ faculty['faculty_name'] }}</td>
+              <td>{{ faculty['username'] }}</td>
+              <td>{{ faculty['university_id'] }}</td>
+              <td>{{ faculty['email'] }}</td>
+              <td>{{ faculty['phno'] }}</td>
+              <td>{{ faculty['dept_name'] }}</td>
+              <td><div class="center"><a href="delete-faculty/{{ faculty['faculty_id'] }}" class="boxed_btn">Delete</a>
+                <a href="/edit-faculty/{{ faculty['faculty_id'] }}" style="float: left;" class="boxed_btn">Edit</a></div></td>
+            </tr>
+          </tbody>
+          {% endfor %}
+    </table>
+</div>  
+    {% endif %}
+
+{% endblock %}

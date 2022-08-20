@@ -1,0 +1,29 @@
+#enroll-btn{
+    float: right;
+}
+
+.boxed_btn {
+    font-size: 16px;
+    color: #fff;
+    padding: 10px 25px;
+    background: #04D2C8;
+    -webkit-border-radius: 30px;
+    -moz-border-radius: 30px;
+    border-radius: 30px;
+    border: 1px solid transparent;
+    -webkit-transition: 0.3s;
+    -moz-transition: 0.3s;
+    -o-transition: 0.3s;
+    transition: 0.3s;
+    text-decoration: none;
+    float: right;
+}
+a:focus, a:hover, .portfolio-cat a:hover, .footer -menu li a:hover {
+    text-decoration: none;
+}
+.card{
+    border-color: black ;
+    width: 25rem;
+    height: 20rem;
+    margin-bottom: 15px;
+}

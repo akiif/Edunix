@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+   {% block head %}
+      <title>Course Category Form</title>
+      <link rel='stylesheet' type="text/css" href="{{ url_for('static', filename='css/form.css') }}" >
+   {% endblock %}
+{% block body %}
+<navbar class="navbar nav-fill">
+   <ul class="nav nav-pills nav-fill">
+     <li class="nav-item">
+     <a class="navbar-brand" href="#">
+       <img src="{{ url_for('static', filename='images/logo.png') }}" width="180px"  alt="">
+     </a>
+   </li>
+   <li class="nav-item">
+     <a class="nav-item nav-link" href="#"></a>
+   </li>
+ </ul>
+</navbar>
+<br>
+      
+
+   {% with messages = get_flashed_messages() %}
+      {% if messages %}
+         <div class="alert alert-warning alert-dismissible fade show" role="alert">
+	         {% for message in messages %}
+		         <div>{{message}}</div>
+            {% endfor %}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+               <span aria-hidden="true">&times;</span>
+            </button>
+         </div>
+	  {% endif %}
+   {% endwith %}
+   
+   {% if form.category_name.error %}
+   <div class="alert alert-warning alert-dismissible fade show" role="alert">
+      {% for message in form.category_name.errors %}
+         <div>{{ message }}</div>
+      {% endfor %}
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+         <span aria-hidden="true">&times;</span>
+      </button>
+   </div>
+   {% endif %}
+
+      <form action = "" method = 'POST'>
+         <fieldset class='center'>
+            <legend>New Course Category Form</legend>
+            {{ form.hidden_tag() }}
+            
+            <div class='center' style = font-size:20px; font-weight:bold;>
+               {{ form.category_name.label }}&nbsp;&nbsp;&nbsp;
+               {{ form.category_name }}
+               <br><br>
+               {{ form.submit }}
+            </div>
+         </fieldset>
+         <hr>
+      </form>
+      <p class="center" style="font-size: large; text-align: center;">
+         <a style=" color: black; font-size: large;" href="/adminDashboard">Back To Admin Dashboard</a>
+      </p>
+      
+{% endblock %}

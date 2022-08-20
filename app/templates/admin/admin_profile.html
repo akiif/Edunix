@@ -1,0 +1,126 @@
+{% extends 'base.html' %}
+{% block head %}
+    <title>Profile-Edunix</title>
+    <style>
+      body{
+        background-image: url('static/images/banner.png');
+      }
+  </style>
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/navbars.css') }}">
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/profile.css') }}">
+{% endblock %}
+
+{% block body %}
+
+
+<nav class="navbar navbar-expand-md  justify-content-md-center justify-content-start">
+  <div>
+    <ul class="navbar-nav mx-auto text-md-center text-left">
+  <a class="navbar-brand d-inline" href="#">
+    <img src="{{ url_for('static', filename='images/logo.png') }}" width="180px"  alt="">
+  </a>
+</ul>
+  </div>
+  <div class="navbar-collapse collapse justify-content-between align-items-center w-100" id="collapsingNavbar2">
+    <ul class="navbar-nav mx-auto text-md-center text-left">
+        <li class="nav-item">
+            <a class="nav-link" href="/facultyDashboard">Home </a> 
+        </li>
+        <li id="sep" class="nav-item"><a class="nav-link"> &nbsp; |</a></li>
+        <li class="nav-item">
+            <a class="nav-link " href="/viewCourses">View Courses &nbsp; |</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/viewStudents">View Students</a> 
+      </li>
+    </ul>
+    <ul class="nav navbar-nav flex-row justify-content-md-center justify-content-start flex-nowrap">
+        <li class="nav-item"><a class="nav-link active" href=""><i class="fas fa-user-circle fa-1x"> Profile</i>  </a> </li>
+        <li class="nav-item"><a class="nav-link" href="/logout"><i class="fas fa-sign-out-alt fa-1x"> Logout</i>  </a> </li>
+    </ul>
+</div>
+</nav>
+  
+  {% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+      {% for message in messages %}
+        <div>{{message}}</div>
+      {% endfor %}
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+  {% endif %}
+{% endwith %}
+
+{% if form.old_password.errors %}
+      <div class="alert alert-warning alert-dismissible fade show" role="alert">
+         {% for message in form.old_password.errors %}
+            {{ message }}
+         {% endfor %}
+         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+         </button>
+      </div>
+{% endif %}
+
+<section class="center">
+    <h2 style="text-align: center;">Profile</h2>
+</section>
+
+{% if profile|length < 1 %}
+    <h4>Unable To Retrieve Profile Info</h4>
+{% else %}
+<section id="profile" class="center">
+    <div class="container">
+    <div class="center">
+        <form class="form-horizontal" method = 'POST'>
+            {{ form.hidden_tag() }}    
+            <div class="input-group mb-3">
+                <span class="input-group-text">Name:</span>
+                <input type="text" class="form-control"  id="name" placeholder="{{ profile['admin_name'] }}" readonly/>
+            </div>
+            <div class="input-group mb-3">
+                <span class="input-group-text">Username:</span>
+                <input type="text" class="form-control" id="name" placeholder="{{ profile['username'] }}" readonly/>
+            </div>
+            <div class="input-group mb-3">
+                <span class="input-group-text">Email:</span>
+                <input type="email" class="form-control" id="uni_id" placeholder="{{ profile['email'] }}" readonly/>
+            </div>
+            <hr class="my-4" />
+            <div class="row mb-4">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="inputPassword4">Old Password</label>
+                        {{ form.old_password(class="form-control") }}
+                    </div>
+                    <div class="form-group">
+                        <label for="inputPassword5">New Password</label>
+                        {{ form.new_password(class="form-control") }}
+                    </div>
+                    <div class="form-group">
+                        <label for="inputPassword6">Confirm Password</label>
+                        {{ form.confirm(class="form-control") }}
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <p class="mb-2">Password requirements</p>
+                    <p class="small text-muted mb-2">To create a new password, you have to meet all of the following requirements:</p>
+                    <ul class="small text-muted pl-4 mb-0">
+                        <li>Minimum 4 character</li>
+                        <li>Can’t be the same as a previous password</li>
+                    </ul>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Save Change</button>
+        </form>
+    </div>
+    </div>
+</div>
+</section>
+
+{% endif %}
+
+{% endblock %}

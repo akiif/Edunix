@@ -1,0 +1,22 @@
+nav{
+  font-size: 20px;
+  color: black;
+  }
+a{
+  color: rgb(10, 10, 10);
+}
+i{
+  font-size: 10px;
+}
+#sep{
+  font-size: 20px;
+  color: black;
+}
+.active{
+  text-underline-position: under;
+  text-decoration: underline;
+  text-decoration-color: #04D2C8;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 2px;
+}
+

@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+{% block head %}
+    <title>Edunix</title>
+    <link rel='stylesheet' type="text/css" href="{{ url_for('static', filename='css/login.css') }}" > 
+    <style>
+      body{
+        background-image: url('static/images/banner.png');
+        background-attachment: fixed;
+        background-size: cover;
+      }
+    </style>
+{% endblock %}
+
+{% block body %}
+
+
+  {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        {% for message in messages %}
+          <div>{{message}}</div>
+        {% endfor %}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    {% endif %}
+  {% endwith %}
+
+<nav class="navbar navbar-expand-md  justify-content-md-center justify-content-start">
+  <div >
+    <ul class="navbar-nav mx-auto text-md-center text-left">
+  <a class="navbar-brand d-inline" href="#">
+    <img src="{{ url_for('static', filename='images/logo.png') }}" width="180px"  alt="">
+  </a>
+</ul>
+  </div>
+  <div class="navbar-collapse collapse justify-content-between align-items-center w-100" id="collapsingNavbar2">
+    <ul class="navbar-nav mx-auto text-md-center text-left">
+        <li class="nav-item">
+            <a class="nav-link" href="#"></a> 
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#"></a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#"></a> 
+        </li>
+    </ul>
+    <!-- <ul class="nav navbar-nav flex-row justify-content-md-center justify-content-start flex-nowrap">
+        <li class="nav-item"><a class="nav-link" href=""><i class="fa fa-facebook mr-1"></i></a> </li>
+        <li class="nav-item"><a class="nav-link" href=""><i class="fa fa-twitter"></i></a> </li>
+    </ul> -->
+</div>
+</nav>
+
+<section>
+  <div class="form">
+    <form  id="select" action="/login" method="POST">
+      <div class="center">
+        <button class= "loginSelect" type="submit" name="login" value="student" form="select">
+          <img src="{{ url_for('static', filename='images/student.png') }}"  id='studentimg' alt="">
+          <p style="text-align: center;">Student Login</p>
+        </button>
+      </div>
+
+      <div class="center">
+        <h2 id='or'>--------OR--------</h2>
+      </div>
+
+      <div class="center">
+        <button class= "loginSelect" type="submit" name="login" value="faculty" form="select">
+          <img src="{{ url_for('static', filename='images/faculty.png') }}"  id='facultyimg' alt="">
+          <p style="text-align: center;">Faculty Login</p>
+        </button>
+      </div>
+    </form>
+  </div>
+</section>
+<footer>
+  <a style="float: right;" href="/adminLogin">Admin Login</a>
+</footer>
+{% endblock %}

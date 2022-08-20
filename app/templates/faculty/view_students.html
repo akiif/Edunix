@@ -1,0 +1,127 @@
+{% extends 'base.html' %}
+{% block head %}
+    <title>Edunix-Faculty Dashboard</title>
+    <style>
+      .boxed_btn {
+        font-size: 16px;
+        color: #fff;
+        padding: 6px 15px;
+        background: #04D2C8;
+        -webkit-border-radius: 30px;
+        -moz-border-radius: 30px;
+        border-radius: 30px;
+        border: 1px solid transparent;
+        -webkit-transition: 0.3s;
+        -moz-transition: 0.3s;
+        -o-transition: 0.3s;
+        transition: 0.3s;
+        text-decoration: none;
+        margin: 5px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      table{
+        background-color: #fff;
+      }
+      #table-section{
+      background-color: white;
+      margin-left: auto;
+      margin-right: auto;
+    } 
+  </style>
+  <!-- <link rel ="stylesheet" type="text/css" href="{{ url_for('static', filename='css/tables.css') }}"> -->
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/navbars.css') }}">
+{% endblock %}
+
+{% block body %}
+
+<nav class="navbar navbar-expand-md  justify-content-md-center justify-content-start">
+  <div>
+    <ul class="navbar-nav mx-auto text-md-center text-left">
+  <a class="navbar-brand d-inline" href="#">
+    <img src="{{ url_for('static', filename='images/logo.png') }}" width="180px"  alt="">
+  </a>
+</ul>
+  </div>
+  <div class="navbar-collapse collapse justify-content-between align-items-center w-100" id="collapsingNavbar2">
+    <ul class="navbar-nav mx-auto text-md-center text-left">
+        <li class="nav-item ">
+            <a class="nav-link" href="#">Home </a> 
+        </li>
+        <li id="sep" class="nav-item"><a class="nav-link"> &nbsp; |</a></li>
+        <li class="nav-item">
+            <a class="nav-link " href="/enrollCourses">View Courses &nbsp; |</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" href="/view-students">View Students</a> 
+      </li>
+    </ul>
+    <ul class="nav navbar-nav flex-row justify-content-md-center justify-content-start flex-nowrap">
+        <li class="nav-item"><a class="nav-link" href="/faculty-profile"><i class="fas fa-user-circle fa-1x"> Profile</i>  </a> </li>
+        <li class="nav-item"><a class="nav-link" href="/logout"><i class="fas fa-sign-out-alt fa-1x"> Logout</i>  </a> </li>
+    </ul>
+</div>
+</nav>
+
+
+  {% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+      {% for message in messages %}
+        <div>{{message}}</div>
+      {% endfor %}
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+  {% endif %}
+{% endwith %}
+
+<div class="container">
+  <form class="" method = "POST">
+    <div class="form-group">
+      <div class="form-row">
+          <div class="input-group col-md-4">
+            <span class="input-group-text">Enter Univerity ID:</span>
+              {{ form.uni_id(class="form-control") }}
+              <button type="submit" class="btn btn-primary"><i class="fas fa-search" aria-hidden="true"></i></button>
+          </div>
+        </div>
+  </form>
+</div>
+
+{% if students|length < 1 %}
+    <h4>No Student Found.</h4>
+
+  {% else %}
+<section  id="table-section">
+    <table class="table table-striped  table-bordered table-hover">
+      <thead class="thead-dark">
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">University_id</th>
+            <th scope="col">Email</th>
+            <th scope="col">Semester</th>
+            <th scope="col">Branch</th>
+            <th scope="col">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for student in students %}
+          <tr>
+            <th scope="row">{{ loop.index }}</th>
+            <td>{{ student['student_name'] }}</td>
+            <td>{{ student['university_id'] }}</td>
+            <td>{{ student['email'] }}</td>
+            <td>{{ student['semester'] }}</td>
+            <td>{{ student['branch_name'] }}</td>
+            <td><div class="center"><a href="/view-student-enroll-info/{{ student['student_id'] }}" class="boxed_btn">View Details</a></div></td>
+          </tr>
+        </tbody>
+          {% endfor %}
+      </table>
+    
+    {% endif %}
+</section>
+{% endblock %}

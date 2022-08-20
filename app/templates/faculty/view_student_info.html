@@ -1,0 +1,160 @@
+{% extends 'base.html' %}
+{% block head %}
+    <title>Faculty Dashboard-Edunix</title>
+    <style>
+      body{
+        background-image: url('static/images/banner.png');
+      }
+  </style>
+  <link rel ="stylesheet" type="text/css" href="{{ url_for('static', filename='css/tables.css') }}">
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/navbars.css') }}">
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/profile.css') }}">
+{% endblock %}
+
+{% block body %}
+
+<nav class="navbar navbar-expand-md  justify-content-md-center justify-content-start">
+  <div>
+    <ul class="navbar-nav mx-auto text-md-center text-left">
+  <a class="navbar-brand d-inline" href="#">
+    <img src="{{ url_for('static', filename='images/logo.png') }}" width="180px"  alt="">
+  </a>
+</ul>
+  </div>
+  <div class="navbar-collapse collapse justify-content-between align-items-center w-100" id="collapsingNavbar2">
+    <ul class="navbar-nav mx-auto text-md-center text-left">
+        <li class="nav-item ">
+            <a class="nav-link" href="#">Home </a> 
+        </li>
+        <li id="sep" class="nav-item"><a class="nav-link"> &nbsp; |</a></li>
+        <li class="nav-item">
+            <a class="nav-link " href="/enrollCourses">View Courses &nbsp; |</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" href="/view-students">View Students</a> 
+      </li>
+    </ul>
+    <ul class="nav navbar-nav flex-row justify-content-md-center justify-content-start flex-nowrap">
+        <li class="nav-item"><a class="nav-link" href="/faculty-profile"><i class="fas fa-user-circle fa-1x"> Profile</i>  </a> </li>
+        <li class="nav-item"><a class="nav-link" href="/logout"><i class="fas fa-sign-out-alt fa-1x"> Logout</i>  </a> </li>
+    </ul>
+</div>
+</nav>
+
+
+  {% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+      {% for message in messages %}
+        <div>{{message}}</div>
+      {% endfor %}
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+  {% endif %}
+{% endwith %}
+
+<section class="center">
+    <h4 style="text-align: center;">Student Info</h4>
+</section>
+
+{% if profile|length < 1 %}
+    <h4>Unable To Retrieve Profile Info</h4>
+{% else %}
+<section id="profile" class="center">
+    <div class="container">
+    <div class="center">
+        <form class="form-horizontal" method = 'POST'> 
+            <div class="form-group">
+                <div class="form-row">
+                    <div class="input-group col-md-6">
+                        <span class="input-group-text">Name:</span>
+                        <input type="text" class="form-control" id="name" placeholder="{{ profile['student_name'] }}" readonly/>
+                    </div>
+                    <div class="input-group col-md-6">
+                        <span class="input-group-text">Username:</span>
+                        <input type="text" class="form-control" id="phone" placeholder="{{ profile['username'] }}" readonly/>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="form-row">
+                    <div class="input-group col-md-4">
+                        <span class="input-group-text">University ID:</span>
+                        <input type="text" class="form-control" id="course" placeholder="{{ profile['university_id'] }}" readonly/>
+                    </div>
+                    <div class="input-group col-md-4">
+                        <span class="input-group-text">Branch:</span>
+                        <input type="text" class="form-control" id="course" placeholder="{{ profile['branch_name'] }}" readonly/>
+                    </div>
+                    <div class="input-group col-md-4">
+                        <span class="input-group-text">Semester:</span>
+                        <input type="text" class="form-control" id="course" placeholder="{{ profile['semester'] }}" readonly/>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="form-row">
+                    <div class="input-group col-md-6">
+                        <span class="input-group-text">Email:</span>
+                        <input type="email" class="form-control" id="course" placeholder="{{ profile['email'] }}" readonly/>
+                    </div>
+                    <div class="input-group col-md-6">
+                        <span class="input-group-text">Phone:</span>
+                        <input type="text" class="form-control" id="phone" placeholder="{{ profile['phno'] }}" readonly/>
+                    </div>
+                </div>
+            </div>
+            <div class="input-group mb-3">
+                <span class="input-group-text">Courses Enrolled:</span>
+                <input type="text" class="form-control" id="course" placeholder="{{ profile['courses_enrolled'] }}" readonly/>
+            </div>
+            <hr class="my-4"/>
+        </form>
+    </div>
+    </div>
+</div>
+</section>
+
+{% endif %}
+
+<section class="center">
+    <h4 style="text-align: center;">Enrolled Courses</h4>
+</section>
+<br>
+
+{% if enrolls|length < 1 %}
+    <h4>The Student hasen't enrolled in any courses.</h4>
+
+  {% else %}
+  
+<section  id="table-section">
+    <table class="table table-striped  table-bordered table-hover">
+        <thead class="thead-dark">
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Course</th>
+              <th scope="col">Duration</th>
+              <th scope="col">Category</th>
+              <th scope="col">Credits</th>
+              <th scope="col">Enrollment Date</th>  
+            </tr>
+          </thead>
+          <tbody>
+            {% for enroll in enrolls %}
+            <tr>
+              <th scope="row">{{ loop.index }}</th>
+              <td>{{ enroll['course_name'] }}</td>
+              <td>{{ enroll['duration'] }}</td>
+              <td>{{ enroll['category'] }}</td>
+              <td>{{ enroll['credits'] }}</td>
+              <td>{{ enroll['enroll_date'] }}</td>
+            </tr>
+          </tbody>
+          {% endfor %}
+    </table>
+    
+    {% endif %}
+</section>
+{% endblock %}

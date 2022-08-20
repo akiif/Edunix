@@ -1,0 +1,23 @@
+@font-face {
+    font-family: Roboto-Black;
+    src: url(fonts/Roboto-Black.ttf) format('truetype');
+  }
+
+body{
+    font-family: 'Roboto-Black';
+    margin: .5%;
+    border-left: .1em;
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+a:focus, a:hover, .portfolio-cat a:hover, .footer -menu li a:hover {
+  text-decoration: none;
+}
+
+.center {
+  margin: auto;
+  width: 80%;
+  border: 3px ;
+  padding: 10px;
+}

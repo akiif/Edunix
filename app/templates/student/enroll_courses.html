@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+{% block head %}
+    <title>Enroll Courses-Edunix</title>
+    <link rel ="stylesheet" type="text/css" href="{{ url_for('static', filename='css/course.css') }}">
+    <style>
+      body{
+        background-image: url('static/images/banner.png');
+      }
+    </style>
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/navbars.css') }}">
+{% endblock %}
+
+{% block body %}
+
+
+<nav class="navbar navbar-expand-md  justify-content-md-center justify-content-start">
+    <div>
+      <ul class="navbar-nav mx-auto text-md-center text-left">
+    <a class="navbar-brand d-inline" href="#">
+      <img src="{{ url_for('static', filename='images/logo.png') }}" width="180px"  alt="">
+    </a>
+  </ul>
+    </div>
+    <div class="navbar-collapse collapse justify-content-between align-items-center w-100" id="collapsingNavbar2">
+      <ul class="navbar-nav mx-auto text-md-center text-left">
+          <li class="nav-item">
+              <a class="nav-link" href="/studentDashboard">Home </a> 
+          </li>
+          <li id="sep" class="nav-item"><a class="nav-link"> &nbsp; |</a></li>
+          <li class="nav-item">
+              <a class="nav-link active" href="/enrollCourses">Enroll Courses</a>
+          </li>
+          <li id="sep" class="nav-item"><a class="nav-link"> &nbsp; |</a></li>
+          <li class="nav-item">
+            <a class="nav-link " href="/viewEnrolled">Enrolled Courses</a> 
+        </li>
+      </ul>
+      <ul class="nav navbar-nav flex-row justify-content-md-center justify-content-start flex-nowrap">
+          <li class="nav-item"><a class="nav-link" href="/studentProfile"><i class="fas fa-user-circle fa-1x"> Profile</i>  </a> </li>
+          <li class="nav-item"><a class="nav-link" href="/logout"><i class="fas fa-sign-out-alt fa-1x"> Logout</i>  </a> </li>
+      </ul>
+  </div>
+</nav>
+
+
+  {% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+      {% for message in messages %}
+        <div>{{message}}</div>
+      {% endfor %}
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+  {% endif %}
+{% endwith %}
+
+<div class="container">
+  <form class="" method = "post">
+    <div class="form-group">
+      <div class="form-row">
+          <div class="input-group col-md-4">
+            <span class="input-group-text">Choose Category:</span>
+              {{ form.category(class="custom-select") }}
+              <button type="submit" class="btn btn-primary"><i class="fas fa-search" aria-hidden="true"></i></button>
+          </div>
+        </div>
+  </form>
+</div>
+
+
+  {% if courses|length < 1 %}
+    <h4>There are no Course's Available.</h4>
+
+  {% else %}
+    
+    <div class="container-fluid">
+      <div class="row">
+        {% for course in courses %}
+          <div class="col-sm-4">
+            <div class="card">
+                <div class="card-header"><h4>{{ course[1] }}</h4></div>
+                <div class="card-body">
+                        <li>Category: &nbsp; {{ course[5] }} </li>
+                        <li>Credits: &nbsp; {{ course[2] }}</li>
+                        <li>Duration: &nbsp; {{ course[3] }} </li>
+                        <li>Platform: &nbsp; {{ course[4] }}</li>
+                </div>
+                <div class="card-footer"><a href="/enroll/{{ course[0] }}" class="boxed_btn">Enroll</a></div>
+            </div>
+          </div>
+        {% endfor %}
+    {% endif %}
+
+{% endblock %}

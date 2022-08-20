@@ -1,0 +1,105 @@
+{% extends 'base.html' %}
+{% block head %}
+<title>Enrolled Courses-Edunix</title>
+<link rel ="stylesheet" type="text/css" href="{{ url_for('static', filename='css/tables.css') }}">
+    <style>
+      body{
+        background-image: url('static/images/banner.png');
+      }
+    </style>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/navbars.css') }}">
+{% endblock %}
+
+{% block body %}
+
+
+<nav class="navbar navbar-expand-md  justify-content-md-center justify-content-start">
+    <div>
+      <ul class="navbar-nav mx-auto text-md-center text-left">
+    <a class="navbar-brand d-inline" href="#">
+      <img src="{{ url_for('static', filename='images/logo.png') }}" width="180px"  alt="">
+    </a>
+  </ul>
+    </div>
+    <div class="navbar-collapse collapse justify-content-between align-items-center w-100" id="collapsingNavbar2">
+      <ul class="navbar-nav mx-auto text-md-center text-left">
+          <li class="nav-item">
+              <a class="nav-link" href="/studentDashboard">Home </a> 
+          </li>
+          <li id="sep" class="nav-item"><a class="nav-link"> &nbsp; |</a></li>
+          <li class="nav-item">
+              <a class="nav-link " href="/enrollCourses">Enroll Courses</a>
+          </li>
+          <li id="sep" class="nav-item"><a class="nav-link"> &nbsp; |</a></li>
+          <li class="nav-item">
+            <a class="nav-link active" href="/viewEnrolled">Enrolled Courses</a> 
+        </li>
+      </ul>
+      <ul class="nav navbar-nav flex-row justify-content-md-center justify-content-start flex-nowrap">
+          <li class="nav-item"><a class="nav-link" href="/studentProfile"><i class="fas fa-user-circle fa-1x"> Profile</i>  </a> </li>
+          <li class="nav-item"><a class="nav-link" href="/logout"><i class="fas fa-sign-out-alt fa-1x"> Logout</i>  </a> </li>
+      </ul>
+  </div>
+</nav>
+
+<br>
+
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+  <div class="alert alert-warning alert-dismissible fade show" role="alert">
+    {% for message in messages %}
+      <div>{{message}}</div>
+    {% endfor %}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+{% endif %}
+{% endwith %}
+
+<section class="center">
+    <h2 style="text-align: center;">Enrolled Courses</h2>
+    <p><h5>Total Courses Enrolled: &nbsp;{{ total_enrolled }}</h5></p>
+</section>
+
+<br>
+
+{% if enrolls|length < 1 %}
+    <h4>You haven't enrolled in any courses.</h4>
+
+  {% else %}
+  
+<section  id="table-section">
+    
+    <table class="table table-striped  table-bordered table-hover">
+        <thead class="thead-dark">
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Course</th>
+              <th scope="col">Duration</th>
+              <th scope="col">Category</th>
+              <th scope="col">Credits</th>
+              <th scope="col">Enrollment Date</th>
+              <th scope="col">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for enroll in enrolls %}
+            <tr>
+              <th scope="row">{{ loop.index }}</th>
+              <td>{{ enroll['course_name'] }}</td>
+              <td>{{ enroll['duration'] }}</td>
+              <td>{{ enroll['category'] }}</td>
+              <td>{{ enroll['credits'] }}</td>
+              <td>{{ enroll['enroll_date'] }}</td>
+              <td><div class="center"><a href="/unenroll/{{ enroll['course_id'] }}" class="boxed_btn">UnEnroll</a></div></td>
+            </tr>
+          </tbody>
+          {% endfor %}
+    </table>
+    
+    {% endif %}
+</section>
+
+
+{% endblock %}

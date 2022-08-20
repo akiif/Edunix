@@ -1,0 +1,148 @@
+{% extends 'base.html' %}
+{% block head %}
+    <title>Edunix</title>
+    <style>
+      body{
+        background-image: url('static/images/banner.png');
+      }
+      .card {
+        border-color: black ;
+        margin-bottom: 15px;
+        width: 18rem;
+        height: 15rem;
+      }
+      .link{
+        color:rgb(89, 0, 255);
+        text-decoration: none;
+      }
+    </style>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/navbars.css') }}">
+{% endblock %}
+
+{% block body %}
+
+
+  {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        {% for message in messages %}
+          <div>{{message}}</div>
+        {% endfor %}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    {% endif %}
+  {% endwith %}
+
+<nav class="navbar navbar-expand-md  justify-content-md-center justify-content-start">
+    <div>
+      <ul class="navbar-nav mx-auto text-md-center text-left">
+    <a class="navbar-brand d-inline" href="#">
+      <img src="{{ url_for('static', filename='images/logo.png') }}" width="180px"  alt="">
+    </a>
+  </ul>
+    </div>
+    <div class="navbar-collapse collapse justify-content-between align-items-center w-100" id="collapsingNavbar2">
+      <ul class="navbar-nav mx-auto text-md-center text-left">
+          <li class="nav-item">
+              <a class="nav-link active" href="/adminDashboard">Home </a> 
+          </li>
+          <li id="sep" class="nav-item"><a class="nav-link"> &nbsp; |</a></li>
+          <li class="nav-item">
+              <a class="nav-link" href="/admin-courses">Courses</a>
+          </li>
+          <li id="sep" class="nav-item"><a class="nav-link"> &nbsp; |</a></li>
+          <li class="nav-item">
+            <a class="nav-link " href="#student">Students</a> 
+        </li>
+        <li id="sep" class="nav-item"><a class="nav-link"> &nbsp; |</a></li>
+        <li class="nav-item">
+          <a class="nav-link " href="/view-faculties">Faculty</a> 
+      </li>
+      </ul>
+      <ul class="nav navbar-nav flex-row justify-content-md-center justify-content-start flex-nowrap">
+          <li class="nav-item"><a class="nav-link" href="/adminProfile"><i class="fas fa-user-circle fa-1x"> Profile</i>  </a> </li>
+          <li class="nav-item"><a class="nav-link" href="/logout"><i class="fas fa-sign-out-alt fa-1x"> Logout</i>  </a> </li>
+      </ul>
+  </div>
+</nav>
+
+<section><h2 style="text-align: center;">Admin Dashboard</h2></section>
+
+<div class="center">
+  <div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-4">
+          <div class="card">
+              <div class="card-header"><h4>Courses</h4></div>
+              <div class="card-body">
+                      <li><a class="link" href="/courseInsertion">Add Course</a> </li> 
+                      <li><a class="link" href="/admin-courses">View Courses</a> </li>
+                      <li><a class="link" href="/admin-courses">Edit Course</a></li>
+                      <li><a class="link" href="/admin-courses">Delete Course</a></li>
+                      <li><a class="link" href="/courseCategoryInsertion">Add Course Category</a>&nbsp;</li>
+                      <li><a class="link" href="">View Course Categories</a> </li>
+                      <li><a class="link" href="#">Edit Course Categories</a></li>
+              </div>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="card">
+              <div class="card-header"><h4>Faculty</h4></div>
+              <div class="card-body">
+                      <li><a class="link" href="/facultyRegistration">Create Faculty Account</a>&nbsp;</li>
+                      <li><a class="link" href="/view-faculties">View Facultie's</a> </li>
+                      <li><a class="link" href="/view-faculties">Edit Faculty Accounts</a> </li>
+                      <li><a class="link" href="/view-faculties">Delete Faculty Account</a></li>
+              </div>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="card">
+              <div class="card-header"><h4>Admin</h4></div>
+              <div class="card-body">
+                      <li><a class="link" href="/adminRegistration">Create Admin Account</a>&nbsp;</li>
+                      <li><a class="link" href="/courseInsertion">View Admin</a> </li>
+                      <li><a class="link" href="#">Edit Admin</a> </li>
+                      <li><a class="link" href="#">Delete Admin Accounts</a></li>
+              </div>
+          </div>
+        </div>
+        <div class="col-sm-4" id="student">
+          <div class="card">
+              <div class="card-header"><h4>Student</h4></div>
+              <div class="card-body">
+                      <li><a class="link" href="/studentRegistration">Create Student Account</a>&nbsp;</li>
+                      <li><a class="link" href="#">View Student's</a> </li>
+                      <li><a class="link" href="#">Edit Student Account's</a> </li>
+                      <li><a class="link" href="#">Delete Student Account</a></li>
+              </div>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="card">
+              <div class="card-header"><h4>Department</h4></div>
+              <div class="card-body">
+                      <li><a class="link" href="add-department">Create Department</a>&nbsp;</li>
+                      <li><a class="link" href="#">View Department's</a> </li>
+                      <li><a class="link" href="#">Edit Department</a> </li>
+                      <li><a class="link" href="#">Delete Department</a></li>
+              </div>
+          </div>
+        </div>
+        <div class="col-sm-4" id="branch">
+          <div class="card">
+              <div class="card-header"><h4>Branch</h4></div>
+              <div class="card-body">
+                      <li><a class="link" href="/add-branch">Create Branch</a>&nbsp;</li>
+                      <li><a class="link" href="#">View Branch</a> </li>
+                      <li><a class="link" href="#">Edit Branch</a> </li>
+                      <li><a class="link" href="#">Delete Branch</a></li>
+              </div>
+          </div>
+        </div>
+      </div>
+      
+
+{% endblock %}

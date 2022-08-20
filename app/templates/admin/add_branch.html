@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+   {% block head %}
+      <title>Add Branch Form</title>
+      <link rel='stylesheet' type="text/css" href="{{ url_for('static', filename='css/form.css') }}" >
+      <style>
+      .link{
+        color:rgb(89, 0, 255);
+        text-decoration: none;
+      }
+    </style>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/navbars.css') }}">
+   {% endblock %}
+{% block body %}
+
+<nav class="navbar navbar-expand-md  justify-content-md-center justify-content-start">
+    <div>
+      <ul class="navbar-nav mx-auto text-md-center text-left">
+    <a class="navbar-brand d-inline" href="#">
+      <img src="{{ url_for('static', filename='images/logo.png') }}" width="180px"  alt="">
+    </a>
+  </ul>
+    </div>
+    <div class="navbar-collapse collapse justify-content-between align-items-center w-100" id="collapsingNavbar2">
+      <ul class="navbar-nav mx-auto text-md-center text-left">
+          <li class="nav-item">
+              <a class="nav-link active" href="/adminDashboard">Home </a> 
+          </li>
+          <li id="sep" class="nav-item"><a class="nav-link"> &nbsp; |</a></li>
+          <li class="nav-item">
+              <a class="nav-link" href="#">Courses</a>
+          </li>
+          <li id="sep" class="nav-item"><a class="nav-link"> &nbsp; |</a></li>
+          <li class="nav-item">
+            <a class="nav-link " href="#student">Students</a> 
+        </li>
+        <li id="sep" class="nav-item"><a class="nav-link"> &nbsp; |</a></li>
+        <li class="nav-item">
+          <a class="nav-link " href="#">Faculty</a> 
+      </li>
+      </ul>
+      <ul class="nav navbar-nav flex-row justify-content-md-center justify-content-start flex-nowrap">
+          <li class="nav-item"><a class="nav-link" href="/adminProfile"><i class="fas fa-user-circle fa-1x"> Profile</i>  </a> </li>
+          <li class="nav-item"><a class="nav-link" href="/logout"><i class="fas fa-sign-out-alt fa-1x"> Logout</i>  </a> </li>
+      </ul>
+  </div>
+</nav>
+ <br>
+
+ {% with messages = get_flashed_messages() %}
+      {% if messages %}
+         <div class="alert alert-warning alert-dismissible fade show" role="alert">
+	         {% for message in messages %}
+		         <div>{{message}}</div>
+            {% endfor %}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+               <span aria-hidden="true">&times;</span>
+            </button>
+         </div>
+	  {% endif %}
+   {% endwith %}
+
+   {% if form.branch_name.error %}
+   <div class="alert alert-warning alert-dismissible fade show" role="alert">
+      {% for message in form.branch_name.errors %}
+         <div>{{ message }}</div>
+      {% endfor %}
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+         <span aria-hidden="true">&times;</span>
+      </button>
+   </div>
+   {% endif %}
+   <div class="center" style="text-align: center;">
+       <h2>Add Branch</h2>
+   </div>
+   <section class="center">
+    <div class="container">
+    <div class="center">
+        <form class="form-horizontal" method = 'POST'>
+            {{ form.hidden_tag() }}
+            <div class="form-group">
+                <div class="input-group mb-3">
+                    {{ form.branch_name(class="form-control", placeholder='Branch Name') }}
+                </div>
+            </div>    
+            <div>
+                {{ form.submit(class="btn btn-primary") }}
+            </div>
+        </form>
+    </div>
+    </div>
+</div>
+</section>
+
+
+{% endblock %}

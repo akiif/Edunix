@@ -1,0 +1,121 @@
+{% extends 'base.html' %}
+   {% block head %}
+      <title>Student Registration</title>
+      <link rel='stylesheet' type="text/css" href="{{ url_for('static', filename='css/form.css') }}" >
+      <style>
+         body {
+            background-image: url('static/images/banner.png');
+         }
+      </style>
+   {% endblock %}
+{% block body %}
+      <navbar></navbar>
+      
+
+   {% with messages = get_flashed_messages() %}
+      {% if messages %}
+         <div class="alert alert-warning alert-dismissible fade show" role="alert">
+	         {% for message in messages %}
+		         <div>{{message}}</div>
+            {% endfor %}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+               <span aria-hidden="true">&times;</span>
+            </button>
+         </div>
+	  {% endif %}
+   {% endwith %}
+   
+   {% if form.name.error %}
+   <div class="alert alert-warning alert-dismissible fade show" role="alert">
+      {% for message in form.name.errors %}
+         <div>{{ message }}</div>
+      {% endfor %}
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+         <span aria-hidden="true">&times;</span>
+      </button>
+   </div>
+   {% endif %}
+
+   {% if form.username.errors %}
+      <div class="alert alert-warning alert-dismissible fade show" role="alert">
+         {% for message in form.username.errors %}
+            <div>
+               {{ message }}
+            </div>
+         {% endfor %}
+         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+         </button>
+      </div>
+   {% endif %}
+   
+   {% if form.password.errors %}
+      <div class="alert alert-warning alert-dismissible fade show" role="alert">
+         {% for message in form.password.errors %}
+            {{ message }}
+         {% endfor %}
+         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+         </button>
+      </div>
+   {% endif %}
+      
+   {% if form.email.errors %}
+      <div class="alert alert-warning alert-dismissible fade show" role="alert">
+         {% for message in form.email.errors %}
+            <div>{{ message }}</div>
+         {% endfor %}
+         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+         </button>
+      </div>
+   {% endif %}
+      <form action = "" method = 'POST'>
+         <fieldset class='center'>
+            <legend>Student Registration Form</legend>
+            {{ form.hidden_tag() }}
+            
+            <div class='center' style = font-size:20px; font-weight:bold;>
+               {{ form.name.label }}&nbsp;&nbsp;&nbsp;
+               {{ form.name }}
+               <br><br>
+               {{ form.username.label }} &nbsp;&nbsp;&nbsp;
+               {{ form.username }} <br>
+               <br>
+               {{ form.password.label }}&nbsp;&nbsp;&nbsp;
+               {{ form.password }}
+               <br><br>
+               {{ form.confirm.label }} 
+               {{ form.confirm }}
+               <br><br>
+               {{ form.university_id.label }}&nbsp;&nbsp;&nbsp;
+               {{ form.university_id }}
+               <br><br>
+               <label for="birthday">Birthday:&nbsp;&nbsp;&nbsp;</label> <input type="date" id="birthday" name="birthday"><br>
+               <br>
+               
+               {{ form.email.label }}&nbsp;&nbsp;&nbsp;
+               {{ form.email }}
+               <br><br>
+
+               {{ form.phone.label }}&nbsp;&nbsp;&nbsp;
+               {{ form.phone }}
+               <br><br>
+               
+               {{ form.branch.label }}&nbsp;&nbsp;&nbsp;
+               {{ form.branch }}
+               <br><br>
+               
+               {{ form.semester.label }} {{ form.semester }}&nbsp;&nbsp;&nbsp;
+               <br>
+               {{ form.submit }}
+            </div>
+            
+         </fieldset>
+         <hr>
+      </form>
+      <p class="center" style="font-size: large; text-align: center;">Already have an account?
+         <a style=" color: black; font-size: large;" href="/login"> Login here.</a>
+      </p>
+      
+{% endblock %}

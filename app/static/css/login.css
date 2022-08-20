@@ -1,0 +1,44 @@
+body{
+    background-image: url("url_for('static', filename='images/banner.png'");
+    background-attachment: fixed;
+    background-size: cover;
+  }
+
+#studentimg {
+    width:  55%;
+    height: 10%;
+}
+#facultyimg {
+    width:  80%;
+    height: 30%;
+}
+.loginSelect {
+        background-color: transparent; 
+        border: none;
+        font-size: 1.5em; 
+}
+.center {
+    margin: auto;
+    width: 20%;
+    border: 3px ;
+    padding: 10px;
+  }
+form { 
+    margin: 0 auto; 
+    text-align: center;
+    padding: 2px;
+}
+
+.or {
+    font-size: 300%;
+    text-align: center;
+}
+
+nav {
+    font-size: 40px;
+    color:black;
+}
+
+.nav-item{
+    color: black;   
+}
